@@ -1,0 +1,5 @@
+# elasticsearch/Dockerfile
+FROM docker.elastic.co/elasticsearch/elasticsearch:7.13.2
+
+# Optionally set environment variables
+ENV discovery.type=single-node
