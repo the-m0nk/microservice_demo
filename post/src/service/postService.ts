@@ -12,11 +12,14 @@ import {
 import { CommentModel } from "../dto/entity.ts/comment.entity";
 
 const elasticClient = new Client({
-  node: "https://d42fb56c1df7777eb31362e7a07fce19.us-central1.gcp.cloud.es.io:443", // Use Node url
+  node: "https:", // Use Node url
   auth: {
     username: "f76f181c809245d1bbafbf80mmccc6931", // use Elastic search username
     password:
       "dXMtY2VudHJhbDEsb3VkLmVzLmlvJGQ0MmZiNTZjMWRmZDQ0N2ViMzEzNjJlN2EwN2ZjZTE5JGI1N2ZkODc1ZjNmYTQ1YjVhOWM3NDQxYTExOTRlZDM2", // Password
+  },
+  tls: {
+    rejectUnauthorized: false, 
   },
 });
 
@@ -110,11 +113,11 @@ export class postService {
       await post.save();
 
       // Index the post in Elasticsearch
-      // await elasticClient.index({
-      //   index: "posts",
-      //   id: (post._id as string).toString(),
-      //   body: postData,
-      // });
+      await elasticClient.index({
+        index: "posts",
+        id: (post._id as string).toString(),
+        body: postData,
+      });
 
       return new SuccessResponseModel(200, "Post created successfully", {
         post,

@@ -28,10 +28,10 @@ const start = async () => {
   //   throw new Error("JWT_KEY must be defined");
   // }
   try {
-    if (!process.env.MONGO_URI) {
-      throw new Error("MONGO_URI must be defined");
-    }
-    await mongoose.connect(process.env.MONGO_URI, {});
+    // if (!process.env.MONGO_URI) {
+    //   throw new Error("MONGO_URI must be defined");
+    // }
+    await mongoose.connect("mongodb://localhost:27017/authSpyne", {});
     console.log("Auth Connected to MongoDB");
   } catch (err) {
     console.error(err);
